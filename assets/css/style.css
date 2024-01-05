@@ -31,10 +31,12 @@ header {
   border-radius: 15px;
 }
 
-.row {
-  white-space: pre-wrap;
-  height: 80px;
-  border-top: 1px solid white;
+tr {
+  background-color: white;
+}
+
+input {
+  background-color: white;
 }
 
 .hour {
@@ -69,4 +71,8 @@ header {
 .saveBtn i:hover {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
+}
+
+.tableRow {
+  display: none;
 }
