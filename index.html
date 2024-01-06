@@ -10,8 +10,9 @@
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"/>
+
+
     <title>Work Day Scheduler</title>
 </head>
 
@@ -36,24 +37,34 @@
                 <th scope="col"></th>
             </tr>
             </thead>
-            <tbody >
-            <tr >
-                <th scope="row">9:00 am</th>
-                <td><input type="text" class="form-control border-0 " aria-label="Event" aria-describedby="enter event"></td>
-                <td> <button  type="button"  dataIndex="0" class="btn btn-primary save ">Save</button></td>
+            <tbody>
+            <tr id="row0">
+                <th scope="row" class="text-nowrap pt-3">9:00 am</th>
+                <td>
+                    <input id="input0" type="text" class="form-control border-0 " aria-label="Event" aria-describedby="enter event">
+                </td>
+                <td>
+                    <button id="btn0" type="button" class="btn btn-primary save ">Save</button>
+                </td>
             </tr>
-            <tr>
-                <th scope="row">10:00 am</th>
-                <td><input type="text" class="form-control border-0 "  aria-label="Event" aria-describedby="enter event"></td>
-                <td><button type="button"   dataIndex="1" class="btn btn-primary save end-0">Save</button></td>
+            <tr id="row1">
+                <th scope="row" class="text-nowrap pt-3">10:00 am</th>
+                <td><input id="input1" type="text" class="form-control border-0 " aria-label="Event" aria-describedby="enter event">
+                </td>
+                <td>
+                    <button id="btn1" type="button" class="btn btn-primary save end-0">Save</button>
+                </td>
             </tr>
-            <tr>
-                <th scope="row">11:00 am</th>
-                <td><input type="text" class="form-control border-0 "  aria-label="Event" aria-describedby="enter event"></td>
-                <td><button  type="button"  dataIndex="2" class="btn btn-primary save end-0">Save</button></td>
+            <tr id="row2" >
+                <th scope="row" class="text-nowrap pt-3">11:00 am</th>
+                <td><input id="input2" type="text" class="form-control border-0 " aria-label="Event" aria-describedby="enter event">
+                </td>
+                <td>
+                    <button id="btn2" type="button"  class="btn btn-primary save end-0">Save</button>
+                </td>
             </tr>
             </tbody>
-      </table>
+        </table>
     </div>
 
 
@@ -67,6 +78,7 @@
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+
 <script src="./assets/js/script.js"></script>
 
 </body>
