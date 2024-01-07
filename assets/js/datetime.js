@@ -1,3 +1,4 @@
+//formats the current day
 export function getCurrentDay() {
     return dayjs().format('dddd DD MMMM [,] YYYY');
 }

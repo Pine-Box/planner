@@ -89,7 +89,6 @@ function initLoadStorage() {
 
 //eventlistener callback - saves event to local storage
 function saveDayEvent(event) {
-    console.log('saveDayEvents', event);
     event.preventDefault();
     let payload = getPayloadFromLocalStorage();
     let btnid = event["target"].getAttributeNode("id").value;
