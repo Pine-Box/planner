@@ -1,45 +1,20 @@
-const payloadKey = "payload"
-
-
-const initialPayload = {
-    "currentDay" : "",
-    "9": {"event": ""},
-    "10": {"event": ""},
-    "11": {"event": ""},
-    "12": {"event": ""},
-    "13": {"event": ""},
-    "14": {"event": ""},
-    "15": {"event": ""},
-    "16": {"event": ""},
-    "17": {"event": ""},
-    "18": {"event": ""},
-};
-
-const timeoffset = 9;
-
 // save reference to important DOM elements
+import {getCurrentDay, getCurrentHour} from "./datetime.js";
+import {initialiseLocalStorage, getPayloadFromLocalStorage, saveEventtoLocalStorage, clearStorage} from "./storage.js";
+
+import {timeoffset} from "./data.js"
+
 let currentDayElement = $('#currentDay');
-let saveEl = $(".save");
+let saveElement = $(".save");
 
 
 // displays the current day
 function displayDate() {
     let today = getCurrentDay();
     currentDayElement.text(today);
-
 }
 
-function getCurrentDay(){
-   return dayjs().format('dddd DD MMMM [,] YYYY');
-}
-
-//gets the current hour (in 24hr time) when page refreshed
-// this is used to set the row colors
-function getCurrentHour() {
-    return Number(dayjs().format('HH'));
-}
-
-//sets any initial input Event text
+//sets any input Event text
 function setInputEventText(row, text) {
     $('input').each(function (index, input) {
         if (row === index) {
@@ -86,60 +61,21 @@ function setBgColorRow(currentHour) {
     });
 }
 
-// saves payload back to local storage
-function saveStorage(payload){
-    console.log("saveLocal: ", payload)
-   localStorage.setItem(payloadKey,JSON.stringify(payload));
-    return payload;
-}
-
-function saveToLocalCurrentDay(day){
-    console.log("saveToLocalCurrentDay: ", day);
-    let payload = loadStorage();
-    payload["currentDay"] = day;
-    console.log("currentDay to local", payload);
-    localStorage.setItem(payloadKey,JSON.stringify(payload) );
-}
-
-function saveEventtoLocalStorage(row , eventText) {
-    console.log("eventstore: ", row, eventText);
-    let payload = loadStorage();
-    let key = Number(row + timeoffset).toString();
-    payload[key]["event"] = eventText;
-    console.log("Event to local", payload);
-    localStorage.setItem(payloadKey,JSON.stringify(payload) );
-}
-
-//loads local storage without updating the event text
-function loadStorage(){
-    let payload = localStorage.getItem(payloadKey);
-    console.log( "loadstorage: ", payload) ;
-    if (payload != null)
-        return  JSON.parse(payload);
-    return null;
-}
-
-
-function initialiseLocalStorage(day){
-         let payload = initialPayload;
-         payload["currentDay"] = day;
-         payload = saveStorage(initialPayload);
-        console.log("initialiseLocalStorage : ", payload);
-        return payload;
-}
 
 //loads the local storage and refreshes the input event text
 function initLoadStorage() {
-     let day = getCurrentDay();
-     let payload = loadStorage();
-     if (payload === null) {
+    let day = getCurrentDay();
+    let payload = getPayloadFromLocalStorage();
+    if (payload === null) {
         return initialiseLocalStorage(day);
     }
-    if (day === payload["currentDay"]){
-    //set input text values
-        let propertyName = "";
-        for (let i = 9; i < 12; i++) {
-            let row = (i - 9);
+    //check if local storage contains current day events
+    // - true display events
+    // - false clear all events and set current day
+    if (day === payload["currentDay"]) {
+        //set input text values
+        for (let i = timeoffset; i < 19; i++) {
+            let row = (i - timeoffset);
             let propertyName = i.toString();
             console.log(row, payload[propertyName]["event"])
             setInputEventText(row, payload[propertyName]["event"]);
@@ -151,25 +87,23 @@ function initLoadStorage() {
     return payload;
 }
 
+//eventlistener callback - saves event to local storage
 function saveDayEvent(event) {
     console.log('saveDayEvents', event);
     event.preventDefault();
-    let payload = loadStorage();
+    let payload = getPayloadFromLocalStorage();
     let btnid = event["target"].getAttributeNode("id").value;
     let inputid = btnid.replace("btn", "input")
-    let row = Number(btnid.replace("btn",""));
-    let eventText = $('#'+inputid).val();
+    let row = Number(btnid.replace("btn", ""));
+    let eventText = $('#' + inputid).val();
     console.log("save event text", row, eventText);
     saveEventtoLocalStorage(row, eventText);
 }
 
-function clearStorage() {
-    console.log('clearstorage')
-    localStorage.removeItem(payloadKey);
-}
 
+// initialises the scheduler and sets background colors
 function init() {
-    //clearStorage();
+    //clearStorage(); use this for debugging
     initLoadStorage();
     let currentHour = getCurrentHour();
     setBgColorRow(currentHour);
@@ -178,4 +112,4 @@ function init() {
 init();
 displayDate();
 
-saveEl.on('click', saveDayEvent);
+saveElement.on('click', saveDayEvent);
