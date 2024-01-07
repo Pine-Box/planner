@@ -57,7 +57,7 @@ function setBgColorRow(currentHour) {
 
     });
     $("button").each(function (index, btn) {
-        $(btn).parent().css("background-color", "blue");
+        $(btn).parent().css("background-color", "#0d6efd;");
     });
 }
 

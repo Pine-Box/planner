@@ -39,6 +39,10 @@ input {
   background-color: white;
 }
 
+td {
+  background-color: #0d6efd;
+}
+
 .hour {
   background-color: #ffffff;
   color: #000000;
