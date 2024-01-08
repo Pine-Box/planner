@@ -38,20 +38,20 @@ function setAlternativeColorRow(element, is_in_the_past) {
     if (is_in_the_past)
         element.css("background-color", "grey");
     else
-        element.css("background-color", "orange");
+        element.css("background-color", "##ffbf00;"); //amber
 }
 
 //main function to set the rows colours for the current hour
 function setBgColorRow(currentHour) {
     $("tbody > tr").each(function (index, tr) {
         if (currentHour === index + timeoffset)
-            $(tr).css("background-color", "green");
+            $(tr).css("background-color", "#238823;");
         else
             setAlternativeColorRow($(tr), (currentHour > index + timeoffset))
     });
     $("input").each(function (index, input) {
         if (currentHour === index + timeoffset)
-            $(input).css("background-color", "green");
+            $(input).css("background-color", "#238823;");
         else
             setAlternativeColorRow($(input), (currentHour > index + timeoffset))
 
